@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Софії ❤️</title>
+    <style>
+        /* Основні стилі */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Додаткові візерунки */
+        .pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/heart-pattern.png');
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff6b6b;
+            margin: 0;
+        }
+
+        .compliment {
+            font-size: 1.5em;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+            background: #e05550;
+            transform: scale(1.1);
+        }
+
+        .button:active {
+            transform: scale(1);
+        }
+
+        .emoji, .heart {
+            position: absolute;
+            font-size: 2em;
+            animation: floatUp 3s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-150px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фон -->
+    <div class="pattern"></div>
+
+    <!-- Контейнер -->
+    <div class="container">
+        <h1 id="title">Софіє, ти найкраща! ❤️</h1>
+        <p id="compliment" class="compliment">Натисни на кнопки, щоб отримати сюрприз!</p>
+
+        <!-- Кнопки -->
+        <div class="button-container">
+            <button class="button" onclick="showMultipleEmojis('😊')">Усмішка</button>
+            <button class="button" onclick="showMultipleEmojis('❤️')">Сердечко</button>
+            <button class="button" onclick="nextCompliment()">Новий комплімент</button>
+            <button class="button" onclick="showMultipleEmojis('🌸')">Квітка</button>
+            <button class="button" onclick="changeMusic()">Інша музика</button>
+        </div>
+    </div>
+
+    <!-- Музика -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Скрипти -->
+    <script>
+        const compliments = [
+            { title: "Софіє, ти найкраща! ❤️", text: "Ти найчарівніша дівчина, яку я знаю!" },
+            { title: "Софіє, ти найгарніша! 🌟", text: "Твоя усмішка робить мій день кращим." },
+            { title: "Софіє, ти найрозумніша! 📚", text: "Твоя доброта і теплість – безцінні." },
+            { title: "Софіє, ти наймиліша! 🥰", text: "З тобою кожен момент – це щастя." },
+            { title: "Софіє, ти найніжніша! 🌸", text: "Ти – найпрекрасніше, що сталося в моєму житті." }
+        ];
+
+        let currentIndex = 0;
+
+        // Зміна компліменту
+        function nextCompliment() {
+            currentIndex = (currentIndex + 1) % compliments.length;
+            const titleElement = document.getElementById("title");
+            const complimentElement = document.getElementById("compliment");
+            titleElement.textContent = compliments[currentIndex].title;
+            complimentElement.textContent = compliments[currentIndex].text;
+        }
+
+        // Показати багато емодзі
+        function showMultipleEmojis(emoji) {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const emojiElement = document.createElement('div');
+                    emojiElement.classList.add('emoji');
+                    emojiElement.textContent = emoji;
+                    emojiElement.style.left = Math.random() * 100 + '%';
+                    emojiElement.style.top = Math.random() * 100 + '%';
+                    emojiElement.style.fontSize = Math.random() * 1.5 + 1 + 'em';
+                    document.body.appendChild(emojiElement);
+
+                    setTimeout(() => emojiElement.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        // Змінити музику
+        function changeMusic() {
+            const music = document.getElementById('backgroundMusic');
+            const sources = [
+                "https://www.bensound.com/bensound-music/bensound-love.mp3",
+                "https://www.bensound.com/bensound-music/bensound-romantic.mp3"
+            ];
+            music.src = sources[Math.floor(Math.random() * sources.length)];
+            music.play();
+        }
+    </script>
+</body>
+</html>
